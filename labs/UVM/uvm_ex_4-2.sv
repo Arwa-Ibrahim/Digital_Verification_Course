@@ -1,9 +1,7 @@
-// UVM Exercise 1
-// Question 2
-// Create a top level module and import the pakages, call run_test method
+// UVM Exercise 4
 
 // include all other coding files
-`include "uvm_ex_1-1.sv"
+`include "uvm_ex_4-1.sv"
 
 module top;
   
@@ -15,9 +13,17 @@ module top;
   import uvm_pkg::*;
   import my_pack::*; 
 
+  // instantiate the interface 
+  virtual intf in1;
+
   initial begin
     $display("Hello from the top module");
     $display("Starting the action!");
+
+    // Set interface on the configuration database
+    uvm_config_db#(virtual intf)::set(null, "uvm_test_top", "vif", in1);
+
+    // run my_test 
     run_test("my_test");
   end // initial block
 
